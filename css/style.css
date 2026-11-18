@@ -581,39 +581,7 @@ h2 {
   50%, 98% { opacity: 0; transform: scaleY(0.95); }
 }
 
-/* Botón/Píldora de sugerencia Tab */
-.ghost-tab-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
-  margin-left: clamp(10px, 1.5vw, 20px);
-  align-self: center;
-  background: rgba(244, 63, 94, 0.16);
-  border: 1px solid rgba(244, 63, 94, 0.45);
-  border-radius: 999px;
-  color: #fda4af;
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
-  font-size: clamp(11px, 0.9vw, 13px);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 16px rgba(244, 63, 94, 0.2);
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: pointer;
-  opacity: 1;
-  pointer-events: auto;
-  line-height: 1;
-  outline: none;
-}
 
-.ghost-tab-pill:hover,
-.ghost-tab-pill:focus-visible {
-  background: rgba(244, 63, 94, 0.35);
-  border-color: rgba(244, 63, 94, 0.85);
-  color: #ffffff;
-  transform: translateY(-1px) scale(1.06);
-  box-shadow: 0 0 22px rgba(244, 63, 94, 0.5);
-}
 
 .ghost-sparkle-icon {
   animation: heroGhostSparkle 2.4s ease-in-out infinite alternate;
@@ -735,11 +703,6 @@ h2 {
     height: clamp(30px, 7.8vw, 54px);
   }
 
-  .ghost-tab-pill {
-    margin-left: 8px;
-    padding: 4px 9px;
-  }
-
   @media (max-width: 480px) {
     .pg-char {
       height: clamp(26px, 6.5vw, 36px);
@@ -752,11 +715,6 @@ h2 {
     }
     .pg-space {
       width: 10px;
-    }
-    .ghost-tab-pill {
-      font-size: 10px;
-      padding: 3px 8px;
-      margin-left: 6px;
     }
   }
 
@@ -2654,12 +2612,6 @@ body.lock {
   .hero-ghost-cursor {
     height: clamp(24px, 5.5vw, 36px) !important;
     width: 4px !important;
-  }
-
-  .ghost-tab-pill {
-    padding: 3px 8px !important;
-    font-size: 10px !important;
-    margin-left: 6px !important;
   }
 
   /* 6. CÓMO TRABAJO EN MÓVIL (Espacio generoso para que el Dock no tape el paso 04) */

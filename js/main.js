@@ -1529,7 +1529,6 @@ function initHeroGhostType() {
   const brand = document.getElementById('heroGhostBrand');
   const typedWrap = document.getElementById('heroDevTyped');
   const ghostWrap = document.getElementById('heroDevGhost');
-  const tabBtn = document.getElementById('heroGhostTabBtn');
   const rowDev = document.getElementById('heroRowDev');
   if (!brand || !typedWrap || !ghostWrap) return;
 
@@ -1574,12 +1573,10 @@ function initHeroGhostType() {
         const ghostPart = currentCompletion.slice(charIdx);
         ghostWrap.innerHTML = renderChars(ghostPart);
         isGhostVisible = true;
-        if (tabBtn) tabBtn.classList.add('is-visible');
         brand.setAttribute('aria-label', `saradev: sugerencia AI '${typedPart}${ghostPart}'`);
       } else {
         ghostWrap.innerHTML = '';
         isGhostVisible = false;
-        if (tabBtn) tabBtn.classList.remove('is-visible');
         brand.setAttribute('aria-label', `sara ${typedPart}`);
         // Pausa tras completar la palabra entera para apreciarla
         timer = setTimeout(() => {
@@ -1598,7 +1595,6 @@ function initHeroGhostType() {
       const typedPart = 'dev' + currentCompletion.slice(0, Math.max(0, charIdx));
       typedWrap.innerHTML = renderChars(typedPart);
       ghostWrap.innerHTML = '';
-      if (tabBtn) tabBtn.classList.remove('is-visible');
       isGhostVisible = false;
       brand.setAttribute('aria-label', `sara ${typedPart}`);
 
@@ -1625,7 +1621,6 @@ function initHeroGhostType() {
       const fullText = 'dev' + currentCompletion;
       typedWrap.innerHTML = renderChars(fullText);
       ghostWrap.innerHTML = '';
-      if (tabBtn) tabBtn.classList.remove('is-visible');
       isGhostVisible = false;
       charIdx = currentCompletion.length;
       brand.setAttribute('aria-label', `sara ${fullText}`);
@@ -1645,11 +1640,10 @@ function initHeroGhostType() {
   }
 
   brand.addEventListener('click', acceptGhost);
-  if (tabBtn) tabBtn.addEventListener('click', (e) => { e.stopPropagation(); acceptGhost(e); });
 
   window.addEventListener('keydown', (e) => {
     if ((e.key === 'Tab' || e.key === 'Enter') && isGhostVisible) {
-      if (document.activeElement === brand || document.activeElement === tabBtn || window.scrollY < window.innerHeight * 0.7) {
+      if (document.activeElement === brand || window.scrollY < window.innerHeight * 0.7) {
         acceptGhost(e);
       }
     }
@@ -1659,7 +1653,6 @@ function initHeroGhostType() {
   typedWrap.innerHTML = renderChars('dev');
   ghostWrap.innerHTML = renderChars('eloper');
   isGhostVisible = true;
-  if (tabBtn) tabBtn.classList.add('is-visible');
 
   // Iniciar el ciclo de Ghost Type
   timer = setTimeout(tick, 1400);
