@@ -2409,31 +2409,38 @@ body.lock {
     height: 76% !important;
   }
 
-  /* 2. SECCIÓN SOBRE MÍ EN MÓVIL */
+  /* 2. SECCIÓN SOBRE MÍ EN MÓVIL (Composición integrada como en computador, sin separar la foto) */
+  #sobre-mi {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
   #sobre-mi .about {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    position: relative !important;
+    display: block !important;
     width: 100% !important;
-    max-width: 440px !important;
-    margin: 0 auto !important;
-    position: static !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 4px auto 0 !important;
   }
 
   #sobre-mi .about .head {
     position: static !important;
-    margin: 6px auto 14px !important;
+    margin: 0 0 16px 0 !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     gap: 10px !important;
     width: 100% !important;
     z-index: 2 !important;
   }
 
   #sobre-mi .about .head h2 {
-    font-size: clamp(1.65rem, 6.8vw, 2.1rem) !important;
+    font-size: clamp(1.65rem, 6.8vw, 2.05rem) !important;
     margin: 0 !important;
+    color: #4d171a !important;
   }
 
   #sobre-mi .about .head img {
@@ -2443,32 +2450,82 @@ body.lock {
   }
 
   #sobre-mi .bubble {
-    margin: 0 0 16px 0 !important;
-    padding: 18px 16px !important;
-    border-radius: 22px !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    font-size: 0.88rem !important;
-    line-height: 1.45 !important;
-  }
-
-  #sobre-mi .bubble p {
-    margin: 0 0 8px !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    border: 1.5px solid rgba(77, 23, 26, 0.14) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 34px !important;
+    padding: 22px 18px 24px !important;
+    box-shadow: 0 16px 40px rgba(77, 23, 26, 0.08) !important;
+    font-size: clamp(0.85rem, 3.8vw, 0.92rem) !important;
+    line-height: 1.5 !important;
+    color: #1a0c10 !important;
+    position: relative !important;
+    z-index: 2 !important;
+    margin: 0 !important;
   }
 
   #sobre-mi .bubble .name {
-    font-size: 1.15em !important;
-    margin-bottom: 6px !important;
+    font-size: clamp(1.2rem, 5vw, 1.32rem) !important;
+    font-weight: 800 !important;
+    color: #7d222e !important;
+    margin: 0 0 8px !important;
+    max-width: calc(100% - 120px) !important;
+  }
+
+  #sobre-mi .bubble p {
+    margin: 0 0 10px !important;
+    color: rgba(77, 23, 26, 0.86) !important;
+  }
+
+  #sobre-mi .bubble p:nth-of-type(2) {
+    max-width: calc(100% - 120px) !important;
+    min-height: 82px !important;
+    margin-bottom: 12px !important;
+  }
+
+  #sobre-mi .bubble p:nth-of-type(3) {
+    clear: both !important;
+    margin-bottom: 12px !important;
+  }
+
+  #sobre-mi .bubble p:nth-of-type(4) {
+    margin: 0 !important;
+    padding-left: 38px !important;
+  }
+
+  #sobre-mi .bubble b {
+    color: #1a0c10 !important;
+    font-weight: 800 !important;
   }
 
   #sobre-mi .polaroid {
-    width: min(210px, 62vw) !important;
-    margin: 0 auto !important;
-    rotate: 0deg !important;
+    position: absolute !important;
+    top: 36px !important;
+    right: 2px !important;
+    width: clamp(120px, 34vw, 130px) !important;
+    rotate: 4.5deg !important;
+    z-index: 4 !important;
+    margin: 0 !important;
+  }
+
+  #sobre-mi .polaroid .fr {
+    width: 100% !important;
+    filter: drop-shadow(0 14px 22px rgba(77, 23, 26, 0.22)) !important;
   }
 
   #sobre-mi .me {
-    display: none !important;
+    display: block !important;
+    position: absolute !important;
+    left: -10px !important;
+    bottom: -15px !important;
+    width: 68px !important;
+    z-index: 5 !important;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.22)) !important;
+    rotate: -6deg !important;
+    pointer-events: none !important;
   }
 
   /* 3. SECCIÓN ÁLBUMES (CENTRO) EN MÓVIL */
