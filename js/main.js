@@ -1526,96 +1526,143 @@ if (document.readyState === 'loading') {
    utilizando la tipografía de píxeles original del abecedario
    ========================================================================== */
 function initHeroGhostType() {
-  const pill = document.getElementById('heroGhostPill');
-  const typedEl = document.getElementById('heroGhostTyped');
+  const brand = document.getElementById('heroGhostBrand');
+  const typedWrap = document.getElementById('heroDevTyped');
+  const ghostWrap = document.getElementById('heroDevGhost');
   const tabBtn = document.getElementById('heroGhostTabBtn');
-  if (!pill || !typedEl) return;
+  const rowDev = document.getElementById('heroRowDev');
+  if (!brand || !typedWrap || !ghostWrap) return;
 
-  const PHRASES = [
-    'Frontend & Web Design',
-    'Creative Developer',
-    'UI / UX & WebGL',
-    'Software Engineer'
+  const COMPLETIONS = [
+    'eloper',     // developer
+    ' creative',  // dev creative
+    'elopment',   // development
+    ' web',       // dev web
+    ' frontend'   // dev frontend
   ];
 
-  let phraseIdx = 0;
-  let charIdx = PHRASES[0].length;
-  let isDeleting = true;
-  let timer = null;
+  function renderChars(text) {
+    let html = '';
+    for (const ch of text) {
+      if (ch === ' ') {
+        html += '<span class="pg-space"></span>';
+      } else {
+        const isUpper = ch >= 'A' && ch <= 'Z';
+        const code = isUpper ? 'upper_' + ch.toLowerCase() : 'lower_' + ch;
+        html += `<img class="pg-char" src="img/abecedario/pink_glyphs/${code}.png" alt="${ch}">`;
+      }
+    }
+    return html;
+  }
 
-  function typeTick() {
-    const currentTarget = PHRASES[phraseIdx];
+  let completionIdx = 0;
+  let charIdx = 0;
+  let isDeleting = false;
+  let timer = null;
+  let isGhostVisible = false;
+
+  function tick() {
+    const currentCompletion = COMPLETIONS[completionIdx];
 
     if (!isDeleting) {
       charIdx++;
-      typedEl.textContent = currentTarget.slice(0, charIdx);
+      const typedPart = 'dev' + currentCompletion.slice(0, charIdx);
+      typedWrap.innerHTML = renderChars(typedPart);
 
-      if (charIdx >= currentTarget.length) {
-        // Pausar con la frase completa para que se lea cómodamente
+      // Sugerencia Ghost: mostrar el resto de la palabra en translúcido con el abecedario
+      if (charIdx < currentCompletion.length) {
+        const ghostPart = currentCompletion.slice(charIdx);
+        ghostWrap.innerHTML = renderChars(ghostPart);
+        isGhostVisible = true;
+        if (tabBtn) tabBtn.classList.add('is-visible');
+        brand.setAttribute('aria-label', `saradev: sugerencia AI '${typedPart}${ghostPart}'`);
+      } else {
+        ghostWrap.innerHTML = '';
+        isGhostVisible = false;
+        if (tabBtn) tabBtn.classList.remove('is-visible');
+        brand.setAttribute('aria-label', `sara ${typedPart}`);
+        // Pausa tras completar la palabra entera para apreciarla
         timer = setTimeout(() => {
           isDeleting = true;
-          typeTick();
-        }, 2800);
+          tick();
+        }, 2600);
         return;
       }
-      const speed = 45 + Math.random() * 30;
-      timer = setTimeout(typeTick, speed);
+
+      // Velocidad orgánica de tipeo
+      const speed = 70 + Math.random() * 35;
+      timer = setTimeout(tick, speed);
     } else {
+      // Borrando hacia atrás hasta dejar solo el prefijo base 'dev'
       charIdx--;
-      typedEl.textContent = currentTarget.slice(0, Math.max(0, charIdx));
+      const typedPart = 'dev' + currentCompletion.slice(0, Math.max(0, charIdx));
+      typedWrap.innerHTML = renderChars(typedPart);
+      ghostWrap.innerHTML = '';
+      if (tabBtn) tabBtn.classList.remove('is-visible');
+      isGhostVisible = false;
+      brand.setAttribute('aria-label', `sara ${typedPart}`);
 
       if (charIdx <= 0) {
         isDeleting = false;
-        phraseIdx = (phraseIdx + 1) % PHRASES.length;
-        timer = setTimeout(typeTick, 450);
+        completionIdx = (completionIdx + 1) % COMPLETIONS.length;
+        // Pausa breve antes de sugerir el siguiente término
+        timer = setTimeout(tick, 500);
         return;
       }
-      timer = setTimeout(typeTick, 28);
+
+      timer = setTimeout(tick, 32);
     }
   }
 
-  function advancePhrase() {
-    if (timer) clearTimeout(timer);
-    phraseIdx = (phraseIdx + 1) % PHRASES.length;
-    typedEl.textContent = PHRASES[phraseIdx];
-    charIdx = PHRASES[phraseIdx].length;
-    isDeleting = true;
+  // Aceptación instantánea con Tab o Clic
+  function acceptGhost(e) {
+    if (e && e.type === 'keydown' && e.key === 'Tab') {
+      e.preventDefault();
+    }
+    if (isGhostVisible || !isDeleting) {
+      clearTimeout(timer);
+      const currentCompletion = COMPLETIONS[completionIdx];
+      const fullText = 'dev' + currentCompletion;
+      typedWrap.innerHTML = renderChars(fullText);
+      ghostWrap.innerHTML = '';
+      if (tabBtn) tabBtn.classList.remove('is-visible');
+      isGhostVisible = false;
+      charIdx = currentCompletion.length;
+      brand.setAttribute('aria-label', `sara ${fullText}`);
 
-    pill.style.transform = 'translateY(-2px) scale(1.05)';
-    pill.style.borderColor = 'rgba(243, 189, 203, 0.9)';
-    pill.style.boxShadow = '0 0 25px rgba(243, 189, 203, 0.5)';
-    setTimeout(() => {
-      pill.style.transform = '';
-      pill.style.borderColor = '';
-      pill.style.boxShadow = '';
-    }, 400);
+      // Efecto háptico visual de aceptación
+      if (rowDev) {
+        rowDev.classList.add('ghost-accepted');
+        setTimeout(() => rowDev.classList.remove('ghost-accepted'), 400);
+      }
 
-    timer = setTimeout(typeTick, 3000);
+      // Pausa más prolongada para que se aprecie la palabra aceptada
+      timer = setTimeout(() => {
+        isDeleting = true;
+        tick();
+      }, 3400);
+    }
   }
 
-  pill.addEventListener('click', (e) => {
-    e.stopPropagation();
-    advancePhrase();
-  });
-
-  if (tabBtn) {
-    tabBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      advancePhrase();
-    });
-  }
+  brand.addEventListener('click', acceptGhost);
+  if (tabBtn) tabBtn.addEventListener('click', (e) => { e.stopPropagation(); acceptGhost(e); });
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab' && (document.activeElement === pill || document.activeElement === tabBtn || window.scrollY < window.innerHeight * 0.7)) {
-      if (document.activeElement === pill || document.activeElement === tabBtn) {
-        e.preventDefault();
-        advancePhrase();
+    if ((e.key === 'Tab' || e.key === 'Enter') && isGhostVisible) {
+      if (document.activeElement === brand || document.activeElement === tabBtn || window.scrollY < window.innerHeight * 0.7) {
+        acceptGhost(e);
       }
     }
   });
 
-  // Iniciar la animación
-  timer = setTimeout(typeTick, 1800);
+  // Estado inicial listo con las letras del abecedario
+  typedWrap.innerHTML = renderChars('dev');
+  ghostWrap.innerHTML = renderChars('eloper');
+  isGhostVisible = true;
+  if (tabBtn) tabBtn.classList.add('is-visible');
+
+  // Iniciar el ciclo de Ghost Type
+  timer = setTimeout(tick, 1400);
 }
 
 if (document.readyState === 'loading') {

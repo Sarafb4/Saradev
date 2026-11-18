@@ -556,44 +556,67 @@ h2 {
   display: inline-block;
 }
 
-/* Hero Ghost Type Pill (React Bits Pro - Editorial Frosted Glass & Syne Typography) */
-.hero-ghost-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(8px, 1.1vw, 12px);
-  padding: 0 clamp(14px, 1.6vw, 20px);
-  height: clamp(38px, 4.6vw, 48px);
-  margin-left: clamp(16px, 2.4vw, 32px);
-  align-self: center;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(179, 44, 78, 0.2);
-  user-select: none;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s cubic-bezier(.34, 1.56, .64, 1);
-  z-index: 5;
-  box-sizing: border-box;
+/* Letras Ghost (AI suggestion en rosa translúcido) */
+.pg-ghost .pg-char {
+  opacity: 0.38;
+  filter: brightness(0.92);
+  transition: opacity 0.2s ease;
 }
 
-.hero-ghost-pill:hover,
-.hero-ghost-pill:focus-visible {
-  border-color: rgba(243, 189, 203, 0.7);
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.6), 0 0 28px rgba(228, 168, 188, 0.45);
-  transform: translateY(-2px) scale(1.02);
+/* Cursor de tipeo estilo Terminal AI */
+.hero-ghost-cursor {
+  display: inline-block;
+  width: clamp(5px, 0.6vw, 8px);
+  height: clamp(44px, 6.5vw, 80px);
+  background: #f43f5e;
+  border-radius: 2px;
+  margin: 0 clamp(4px, 0.5vw, 7px);
+  align-self: flex-end;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.9), 0 0 24px rgba(244, 63, 94, 0.4);
+  animation: heroGhostCursorBlink 0.95s infinite;
+}
+
+@keyframes heroGhostCursorBlink {
+  0%, 48% { opacity: 1; transform: scaleY(1); }
+  50%, 98% { opacity: 0; transform: scaleY(0.95); }
+}
+
+/* Botón/Píldora de sugerencia Tab */
+.ghost-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  margin-left: clamp(10px, 1.5vw, 20px);
+  align-self: center;
+  background: rgba(244, 63, 94, 0.16);
+  border: 1px solid rgba(244, 63, 94, 0.45);
+  border-radius: 999px;
+  color: #fda4af;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.2);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  opacity: 1;
+  pointer-events: auto;
+  line-height: 1;
+  outline: none;
+}
+
+.ghost-tab-pill:hover,
+.ghost-tab-pill:focus-visible {
+  background: rgba(244, 63, 94, 0.35);
+  border-color: rgba(244, 63, 94, 0.85);
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.06);
+  box-shadow: 0 0 22px rgba(244, 63, 94, 0.5);
 }
 
 .ghost-sparkle-icon {
-  color: #f3bdcb;
-  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  animation: heroGhostSparkle 2.6s ease-in-out infinite alternate;
+  animation: heroGhostSparkle 2.4s ease-in-out infinite alternate;
 }
 
 @keyframes heroGhostSparkle {
@@ -601,54 +624,14 @@ h2 {
   100% { transform: rotate(45deg) scale(1.15); opacity: 1; }
 }
 
-.ghost-typed-text {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: clamp(0.88rem, 1.25vw, 1.12rem);
-  letter-spacing: -0.015em;
-  color: #ffffff;
-  white-space: nowrap;
+.ghost-accepted {
+  animation: heroGhostPop 0.4s var(--spring) forwards;
 }
 
-.ghost-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.2em;
-  background: #ffffff;
-  margin-left: 2px;
-  vertical-align: middle;
-  animation: ghostCursorBlink 0.8s infinite;
-}
-
-@keyframes ghostCursorBlink {
-  0%, 45% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-.ghost-tab-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  margin-left: 4px;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(0.68rem, 0.85vw, 0.78rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.95);
-  cursor: pointer;
-  outline: none;
-  transition: all 0.2s ease;
-}
-
-.ghost-tab-badge:hover {
-  background: rgba(243, 189, 203, 0.35);
-  border-color: rgba(243, 189, 203, 0.8);
-  color: #ffffff;
-  transform: scale(1.05);
+@keyframes heroGhostPop {
+  0% { transform: scale(1); filter: drop-shadow(0 0 28px rgba(228, 168, 188, 0.45)); }
+  50% { transform: scale(1.03); filter: drop-shadow(0 0 45px rgba(244, 63, 94, 0.9)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 28px rgba(228, 168, 188, 0.45)); }
 }
 
 /* 3. Columna de Píldoras y Redes Sociales en la esquina inferior derecha */
@@ -2654,29 +2637,29 @@ body.lock {
     right: 8px !important;
   }
 
-  /* 5. HERO GHOST TYPE PILL EN MÓVIL */
+  /* 5. HERO GHOST TYPE CON LETRAS DE ABECEDARIO EN MÓVIL */
   .brand-row.row-dev {
     margin-left: 0 !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 10px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    gap: 4px !important;
   }
 
-  .hero-ghost-pill {
-    margin-left: 0 !important;
-    margin-top: 6px !important;
-    height: 38px !important;
-    padding: 0 14px !important;
-    max-width: calc(100vw - 32px) !important;
+  .pg-char {
+    height: clamp(28px, 6.2vw, 40px) !important;
   }
 
-  .ghost-typed-text {
-    font-size: clamp(0.78rem, 3.8vw, 0.92rem) !important;
+  .hero-ghost-cursor {
+    height: clamp(24px, 5.5vw, 36px) !important;
+    width: 4px !important;
   }
 
-  .ghost-tab-badge {
+  .ghost-tab-pill {
     padding: 3px 8px !important;
-    font-size: 0.68rem !important;
+    font-size: 10px !important;
+    margin-left: 6px !important;
   }
 
   /* 6. CÓMO TRABAJO EN MÓVIL (Espacio generoso para que el Dock no tape el paso 04) */
