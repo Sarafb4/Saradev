@@ -656,19 +656,30 @@ addEventListener('scroll', () => {
   document.documentElement.style.setProperty('--sy', scrollY);
 }, { passive: true });
 
-// Función para obtener la posición exacta de scroll vertical de cada sección
+// Función para obtener la posición exacta de scroll vertical de cada sección (Card Stacking Universal)
 function getSectionScrollTop(targetId) {
   if (targetId === 'inicio') return 0;
   
-  const track = document.getElementById('albumsTrack');
-  const targetEl = document.getElementById(targetId);
-  if (!targetEl) return null;
+  const sections = [
+    { ids: ['inicio'], el: document.getElementById('inicio') },
+    { ids: ['albumes', 'sobre-mi', 'habilidades'], el: document.getElementById('albumsTrack') },
+    { ids: ['proyectos'], el: document.getElementById('proyectos') },
+    { ids: ['como-trabajo'], el: document.getElementById('como-trabajo') },
+    { ids: ['contacto'], el: document.getElementById('contacto') }
+  ];
 
-  if (targetId === 'albumes' || targetId === 'sobre-mi' || targetId === 'habilidades' || (track && track.contains(targetEl))) {
-    return track ? track.offsetTop : targetEl.offsetTop;
+  let accumulatedTop = 0;
+  for (const sec of sections) {
+    if (sec.ids.includes(targetId)) {
+      return accumulatedTop;
+    }
+    if (sec.el) {
+      accumulatedTop += sec.el.offsetHeight;
+    }
   }
 
-  return targetEl.offsetTop;
+  const targetEl = document.getElementById(targetId);
+  return targetEl ? targetEl.offsetTop : 0;
 }
 
 // Desplazamiento suave universal para todos los enlaces del Dock
@@ -712,17 +723,24 @@ function updateActiveDock() {
   const currentScroll = window.scrollY;
   const vh = window.innerHeight;
   const sections = [
-    { id: 'contacto', el: document.getElementById('contacto') },
-    { id: 'como-trabajo', el: document.getElementById('como-trabajo') },
-    { id: 'proyectos', el: document.getElementById('proyectos') },
+    { id: 'inicio', el: document.getElementById('inicio') },
     { id: 'albumes', el: document.getElementById('albumsTrack') },
-    { id: 'inicio', el: document.getElementById('inicio') }
+    { id: 'proyectos', el: document.getElementById('proyectos') },
+    { id: 'como-trabajo', el: document.getElementById('como-trabajo') },
+    { id: 'contacto', el: document.getElementById('contacto') }
   ];
 
+  let accumulated = 0;
+  const sectionPositions = [];
+  sections.forEach(sec => {
+    sectionPositions.push({ id: sec.id, top: accumulated });
+    if (sec.el) accumulated += sec.el.offsetHeight;
+  });
+
   let currentId = 'inicio';
-  for (const sec of sections) {
-    if (sec.el && currentScroll >= sec.el.offsetTop - vh * 0.35) {
-      currentId = sec.id;
+  for (let i = sectionPositions.length - 1; i >= 0; i--) {
+    if (currentScroll >= sectionPositions[i].top - vh * 0.35) {
+      currentId = sectionPositions[i].id;
       break;
     }
   }
@@ -1500,4 +1518,108 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initAllGridRise);
 } else {
   initAllGridRise();
+}
+
+/* ==========================================================================
+   Ghost Type Engine on SARADEV (React Bits Pro Pattern)
+   Headline que se escribe solo con autocompletados AI estilo Ghost
+   utilizando la tipografía de píxeles original del abecedario
+   ========================================================================== */
+function initHeroGhostType() {
+  const pill = document.getElementById('heroGhostPill');
+  const typedEl = document.getElementById('heroGhostTyped');
+  const tabBtn = document.getElementById('heroGhostTabBtn');
+  if (!pill || !typedEl) return;
+
+  const PHRASES = [
+    'Frontend & Web Design',
+    'Creative Developer',
+    'UI / UX & WebGL',
+    'Software Engineer'
+  ];
+
+  let phraseIdx = 0;
+  let charIdx = PHRASES[0].length;
+  let isDeleting = true;
+  let timer = null;
+
+  function typeTick() {
+    const currentTarget = PHRASES[phraseIdx];
+
+    if (!isDeleting) {
+      charIdx++;
+      typedEl.textContent = currentTarget.slice(0, charIdx);
+
+      if (charIdx >= currentTarget.length) {
+        // Pausar con la frase completa para que se lea cómodamente
+        timer = setTimeout(() => {
+          isDeleting = true;
+          typeTick();
+        }, 2800);
+        return;
+      }
+      const speed = 45 + Math.random() * 30;
+      timer = setTimeout(typeTick, speed);
+    } else {
+      charIdx--;
+      typedEl.textContent = currentTarget.slice(0, Math.max(0, charIdx));
+
+      if (charIdx <= 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % PHRASES.length;
+        timer = setTimeout(typeTick, 450);
+        return;
+      }
+      timer = setTimeout(typeTick, 28);
+    }
+  }
+
+  function advancePhrase() {
+    if (timer) clearTimeout(timer);
+    phraseIdx = (phraseIdx + 1) % PHRASES.length;
+    typedEl.textContent = PHRASES[phraseIdx];
+    charIdx = PHRASES[phraseIdx].length;
+    isDeleting = true;
+
+    pill.style.transform = 'translateY(-2px) scale(1.05)';
+    pill.style.borderColor = 'rgba(243, 189, 203, 0.9)';
+    pill.style.boxShadow = '0 0 25px rgba(243, 189, 203, 0.5)';
+    setTimeout(() => {
+      pill.style.transform = '';
+      pill.style.borderColor = '';
+      pill.style.boxShadow = '';
+    }, 400);
+
+    timer = setTimeout(typeTick, 3000);
+  }
+
+  pill.addEventListener('click', (e) => {
+    e.stopPropagation();
+    advancePhrase();
+  });
+
+  if (tabBtn) {
+    tabBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      advancePhrase();
+    });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' && (document.activeElement === pill || document.activeElement === tabBtn || window.scrollY < window.innerHeight * 0.7)) {
+      if (document.activeElement === pill || document.activeElement === tabBtn) {
+        e.preventDefault();
+        advancePhrase();
+      }
+    }
+  });
+
+  // Iniciar la animación
+  timer = setTimeout(typeTick, 1800);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeroGhostType);
+} else {
+  initHeroGhostType();
 }
