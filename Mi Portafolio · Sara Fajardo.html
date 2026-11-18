@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>saradev · Sara Fajardo</title>
+
+  <!-- Fuentes de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=Syne:wght@400;500;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="boot">
+
+  <!-- Pantalla de carga / Bootloader pixelado -->
+  <div id="boot" aria-hidden="true">
+    <div class="px" id="px"></div>
+    <div class="bt">
+      <div class="boot-brand" id="bootBrand" aria-label="saradev">
+        <span class="b-ch" data-ch="s"><img src="img/abecedario/boot/char_s_255.png" alt="s"></span>
+        <span class="b-ch" data-ch="a"><img src="img/abecedario/boot/char_a_255.png" alt="a"></span>
+        <span class="b-ch" data-ch="r"><img src="img/abecedario/boot/char_r_255.png" alt="r"></span>
+        <span class="b-ch" data-ch="a"><img src="img/abecedario/boot/char_a_255.png" alt="a"></span>
+        <span class="b-ch" data-ch="d"><img src="img/abecedario/boot/char_d_179.png" alt="d"></span>
+        <span class="b-ch" data-ch="e"><img src="img/abecedario/boot/char_e_179.png" alt="e"></span>
+        <span class="b-ch" data-ch="v"><img src="img/abecedario/boot/char_v_179.png" alt="v"></span>
+      </div>
+      <div class="track"><i id="bi"></i></div>
+    </div>
+  </div>
+
+  <!-- Notificación Toast flotante -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <!-- Barra de navegación inferior tipo Dock -->
+  <nav class="dock" id="dock" aria-label="Navegación">
+    <a href="#inicio" data-l="Inicio"><img data-s="compass" alt="Inicio"></a>
+    <a href="#albumes" data-l="Álbumes" data-sec="albumes sobre-mi habilidades"><img data-s="photos" alt="Álbumes"></a>
+    <a href="#proyectos" data-l="Proyectos" data-sec="proyectos"><img data-s="folder" alt="Proyectos"></a>
+    <a href="#como-trabajo" data-l="Cómo trabajo" data-sec="como-trabajo"><img data-s="gear" alt="Cómo trabajo"></a>
+    <a href="#contacto" data-l="Contacto" data-sec="contacto"><img data-s="phone" alt="Contacto"></a>
+  </nav>
+
+  <main>
+    <!-- Sección Inicio / Hero (Diseño Editorial Chic Asimétrico y Centrado) -->
+    <section id="inicio">
+      <!-- Glow interactivo sutil reactivo al mouse -->
+      <div class="hero-interactive-glow" id="heroGlow" aria-hidden="true"></div>
+
+      <!-- Grid Rise: Campo interactivo de baldosas 3D con elevación y ondas reactivas al cursor (React Bits Pro - Vinotinto) -->
+      <canvas id="gridRiseCanvasHero" class="grid-rise-canvas" aria-hidden="true"></canvas>
+
+      <!-- Contenedor central armónico con la marca principal -->
+      <div class="hero-editorial-wrap">
+        <div class="hero-brand-col">
+          <h1 class="hero-brand-staggered" aria-label="saradev">
+            <span class="brand-row row-sara">
+              <img class="hero-part-img" src="img/hero-sara.png" alt="sara">
+            </span>
+            <span class="brand-row row-dev">
+              <img class="hero-part-img" src="img/hero-dev.png" alt="dev">
+            </span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Redes Sociales en la esquina inferior derecha -->
+      <div class="hero-meta-col" data-r="up" style="--d: .3s">
+        <div class="hero-socials">
+          <a href="https://www.instagram.com/sara.webdev/" target="_blank" rel="noopener" class="hero-social-link"
+            aria-label="Instagram" title="@sara.webdev">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
+          </a>
+          <a href="https://wa.me/573125473848" target="_blank" rel="noopener" class="hero-social-link"
+            aria-label="WhatsApp" title="+57 312 5473848">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path
+                d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.155.57 4.178 1.564 5.928l-1.657 6.056 6.223-1.632c1.701.927 3.65 1.464 5.727 1.464 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+          <a href="https://github.com/" target="_blank" rel="noopener" class="hero-social-link" aria-label="GitHub"
+            title="GitHub">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenedor Horizontal de Álbumes: Habilidades (Izq) | Álbumes (Centro) | Sobre mí (Der) -->
+    <div class="albums-horizontal-track" id="albumsTrack">
+
+      <!-- Sección Habilidades (A la IZQUIERDA de Álbumes) -->
+      <section id="habilidades" class="paper horizontal-slide">
+        <a href="#albumes" class="album-nav-link link-right" aria-label="Volver a Álbumes">Álbumes →</a>
+        <img class="gear a" data-s="gear" alt="">
+        <img class="gear b" data-s="gear" alt="">
+        <div class="head" data-r="right">
+          <h2>Habilidades</h2><img data-s="photos" alt="">
+        </div>
+        <div class="panel" data-r="up">
+          <div class="group" data-r="up" style="--d: .15s">
+            <h3>Lenguajes:</h3>
+            <div class="chips" data-chips="lang"></div>
+          </div>
+          <div class="group" data-r="up" style="--d: .28s">
+            <h3>Tecnologías:</h3>
+            <div class="chips" data-chips="tech"></div>
+          </div>
+          <div class="group" data-r="up" style="--d: .4s">
+            <h3>Herramientas:</h3>
+            <div class="chips" data-chips="tools"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección Álbumes (En el CENTRO) -->
+      <section id="albumes" class="paper blush horizontal-slide">
+        <div class="head" data-r="left"><img data-s="photos" alt="">
+          <h2>Álbumes</h2>
+        </div>
+        <div class="albums">
+          <a class="album" href="#sobre-mi" data-r="left" style="--d:.12s">
+            <img data-s="tongue" alt="">
+            <div>
+              <h3>Sobre mí</h3>
+              <p>Conóceme un poco</p>
+            </div>
+          </a>
+          <a class="album" href="#habilidades" data-r="right" style="--d:.25s">
+            <img data-s="gear" alt="">
+            <div>
+              <h3>Habilidades</h3>
+              <p>Tecnologías, lenguajes y herramientas que uso.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Sección Sobre Mí (A la DERECHA de Álbumes) -->
+      <section id="sobre-mi" class="paper horizontal-slide">
+        <a href="#albumes" class="album-nav-link link-left" aria-label="Volver a Álbumes">← Álbumes</a>
+        <div class="about">
+          <div class="head" data-r="left"><img data-s="photos" alt="">
+            <h2>Sobre mí</h2>
+          </div>
+          <div class="bubble" data-r="up">
+            <p class="name" data-r="wipe" style="--d:.3s">Sara Fajardo</p>
+            <p data-r="up" style="--d:.45s">Soy estudiante de Ingeniería de software, me interesa el diseño de software
+              y el desarrollo de experiencias digitales.</p>
+            <p data-r="up" style="--d:.6s">Disfruto experimentar con ideas creativas y cuidar detalles en las
+              páginas/aplicaciones que he creado para que tengan identidad propia.</p>
+            <p data-r="up" style="--d:.75s"><b>Idiomas:</b>Español<br>Inglés (certificado)</p>
+          </div>
+          <div class="polaroid" data-r="up">
+            <img class="ph" src="img/sobre-mi.jpg" alt="Sara Fajardo">
+            <img class="fr" data-s="frame" alt="">
+          </div>
+          <img class="me" data-s="tongue" alt="" data-r="left">
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Sección Proyectos: Concave Carousel (React Bits Pro - Galería Cóncava Inmersiva con Reflejo) -->
+    <section id="proyectos" class="concave-section">
+      <div class="concave-head" data-r="up">
+        <div class="editorial-title-row">
+          <h2 data-r="up">Mis proyectos</h2>
+          <img data-s="folder" alt="Proyectos" class="editorial-folder-icon" data-r="pop" style="--d: .18s">
+        </div>
+        <p class="concave-subtitle" data-r="up" style="--d: .25s">Galería inmersiva cóncava · Desliza para explorar · Clic en la tarjeta para ver video</p>
+      </div>
+
+      <!-- Viewport del Concave Carousel -->
+      <div class="concave-viewport" id="concaveViewport" tabindex="0" role="region" aria-label="Galería cóncava de proyectos">
+        <div class="concave-track" id="concaveTrack">
+          <!-- 6 paneles cóncavos en arco 3D continuo con reflejos en el suelo -->
+          <article class="concave-card" data-slot="0" data-proj="0" tabindex="0" role="button" aria-label="Proyecto 1: Sablée Pastelería">
+            <div class="concave-card-frame">
+              <img src="img/proyecto-sablee.jpg" alt="Sablée Pastelería" draggable="false" loading="eager">
+            </div>
+          </article>
+
+          <article class="concave-card" data-slot="1" data-proj="1" tabindex="0" role="button" aria-label="Proyecto 2: Amigurumis Catálogo">
+            <div class="concave-card-frame">
+              <img src="img/proyecto-amigurumis.jpg" alt="Amigurumis Catálogo" draggable="false" loading="eager">
+            </div>
+          </article>
+
+          <article class="concave-card" data-slot="2" data-proj="2" tabindex="0" role="button" aria-label="Proyecto 3: Avélle Beauty Store">
+            <div class="concave-card-frame">
+              <img src="img/proyecto-avelle.jpg" alt="Avélle Beauty Store" draggable="false" loading="eager">
+            </div>
+          </article>
+
+          <article class="concave-card" data-slot="3" data-proj="0" tabindex="0" role="button" aria-label="Proyecto 1: Sablée Pastelería">
+            <div class="concave-card-frame">
+              <img src="img/proyecto-sablee.jpg" alt="Sablée Pastelería" draggable="false" loading="eager">
+            </div>
+          </article>
+
+          <article class="concave-card" data-slot="4" data-proj="1" tabindex="0" role="button" aria-label="Proyecto 2: Amigurumis Catálogo">
+            <div class="concave-card-frame">
+              <img src="img/proyecto-amigurumis.jpg" alt="Amigurumis Catálogo" draggable="false" loading="eager">
+            </div>
+          </article>
+
+          <article class="concave-card" data-slot="5" data-proj="2" tabindex="0" role="button" aria-label="Proyecto 3: Avélle Beauty Store">
+            <div class="concave-card-frame">
+              <img src="img/proyecto-avelle.jpg" alt="Avélle Beauty Store" draggable="false" loading="eager">
+            </div>
+          </article>
+        </div>
+
+        <!-- Flechas de navegación curvadas estilo galería -->
+        <button class="concave-arrow concave-prev" id="concavePrevBtn" aria-label="Proyecto anterior">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="concave-arrow concave-next" id="concaveNextBtn" aria-label="Proyecto siguiente">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Sección Cómo trabajo (Proceso · 4 pasos) -->
+    <section id="como-trabajo" class="workflow-section">
+      <div class="wrap">
+        <p class="eyebrow">Proceso · 4 pasos</p>
+        <h2>Cómo <em>trabajo</em></h2>
+        <div class="grid" id="grid">
+          <div id="list" role="list"></div>
+          <div class="vis" aria-hidden="true">
+            <span class="cap" id="cap">Paso 01 / 04</span>
+            <div class="v on"><svg viewBox="0 0 400 300"><g class="n n1"><rect x="40" y="50" width="130" height="92" rx="10"/><path d="M60 82h82M60 104h50"/></g><g class="n n2"><rect x="205" y="38" width="150" height="80" rx="10"/><path d="M225 68h88M225 90h56"/><circle class="ac" cx="338" cy="58" r="6"/></g><g class="n n3"><rect x="120" y="162" width="160" height="86" rx="10"/><path d="M142 192h96M142 214h60"/></g></svg></div>
+            <div class="v"><svg viewBox="0 0 400 300"><rect x="50" y="40" width="300" height="220" rx="10"/><path d="M50 72h300"/><rect class="ac hl" x="72" y="92" width="256" height="64" rx="6"/><rect x="72" y="172" width="76" height="62" rx="6"/><rect x="162" y="172" width="76" height="62" rx="6"/><rect x="252" y="172" width="76" height="62" rx="6"/><g class="cur"><path d="M84 112l0 34l9-8l7 14l6-3l-7-13l12-1z" style="fill:var(--on)"/></g></svg></div>
+            <div class="v"><svg viewBox="0 0 400 300"><g class="code"><path pathLength="1" style="--i:0" d="M70 70h90"/><path pathLength="1" style="--i:1" d="M90 100h150"/><path pathLength="1" style="--i:2" d="M90 130h110"/><path pathLength="1" style="--i:3" d="M110 160h170"/><path pathLength="1" style="--i:4" d="M110 190h80"/><path pathLength="1" style="--i:5" d="M90 220h60"/><path pathLength="1" style="--i:6" d="M70 250h50"/></g><rect class="ac caret" x="128" y="238" width="10" height="24"/></svg></div>
+            <div class="v"><svg viewBox="0 0 400 300"><path d="M70 215A130 130 0 0 1 330 215" style="opacity:.25"/><path class="arc" pathLength="1" d="M70 215A130 130 0 0 1 330 215" style="stroke:var(--rose);stroke-width:5"/><line class="needle" x1="200" y1="215" x2="200" y2="120"/><circle class="ac" cx="200" cy="215" r="9"/><text x="200" y="262" text-anchor="middle" font-size="34">60 fps</text></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Contacto con Grid Rise (React Bits Pro - Cuadritos Vinotinto Interactivos) -->
+    <section id="contacto">
+      <canvas id="gridRiseCanvasContact" class="grid-rise-canvas" aria-hidden="true"></canvas>
+      <h2 class="contact-brand" aria-label="Sara Fajardo">
+        <img class="contact-img" src="img/contact-title.png" alt="Sara Fajardo">
+      </h2>
+      <div class="ctas">
+        <a class="btn" href="https://wa.me/573125473848" target="_blank" rel="noopener"
+          aria-label="WhatsApp">
+          <img data-s="phone" alt="WhatsApp">+57 312 5473848
+        </a>
+        <a class="btn" href="https://www.instagram.com/sara.webdev/" target="_blank"
+          rel="noopener" aria-label="Instagram">
+          <img data-s="instagram" alt="Instagram">@sara.webdev
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Vista Editorial de Proyecto a Pantalla Completa (Clip-Path Iris) -->
+  <div class="pview" id="pw" role="dialog" aria-modal="true" aria-label="Detalle del proyecto">
+    <button type="button" class="pview-close" id="pviewClose" aria-label="Cerrar vista de proyecto">CERRAR ✕</button>
+    <div class="pview-stage" id="pviewStage">
+      <!-- Mitad izquierda (aprox 55%): Multimedia a pantalla completa de su mitad -->
+      <div class="pview-media-col" id="pviewMediaCol">
+        <div class="pview-media-inner" id="pviewMediaInner"></div>
+        <!-- Controles mínimos de video (pausa/reproducir, barra progreso, silenciar) -->
+        <div class="pview-player-bar" id="pviewPlayerBar">
+          <button type="button" class="pview-player-btn is-playing" id="pviewPlayPause" aria-label="Pausar o reproducir video" title="Pausar/Reproducir">
+            <svg class="pview-icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+            <svg class="pview-icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </button>
+          <div class="pview-progress-track" id="pviewProgressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0" aria-label="Progreso del video">
+            <div class="pview-progress-fill" id="pviewProgressFill"></div>
+          </div>
+          <button type="button" class="pview-player-btn is-muted" id="pviewMute" aria-label="Silenciar o activar audio" title="Silenciar/Activar audio">
+            <svg class="pview-icon-muted" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <svg class="pview-icon-sound" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mitad derecha (aprox 45%): Información del proyecto -->
+      <div class="pview-info-col" id="pviewInfoCol">
+        <div class="pview-info-content" id="pviewInfoContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cursor Personalizado Elegante -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+
+  <!-- Scripts JavaScript (Assets y Lógica) -->
+  <script src="js/stickers.js"></script>
+  <script src="js/project-textures.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/three.min.js" defer></script>
+  <script src="js/liquid-carousel.js" defer></script>
+</body>
+
+</html>

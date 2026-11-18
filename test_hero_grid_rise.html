@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>saradev · Sara Fajardo</title>
+
+  <!-- Fuentes de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=Syne:wght@400;500;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="ready">
+
+  <!-- Pantalla de carga / Bootloader pixelado -->
+  <div id="boot" style="display:none !important;" aria-hidden="true">
+    <div class="px" id="px"></div>
+    <div class="bt">
+      <div class="boot-brand" id="bootBrand" aria-label="saradev">
+        <span class="b-ch" data-ch="s"><img src="img/abecedario/boot/char_s_255.png" alt="s"></span>
+        <span class="b-ch" data-ch="a"><img src="img/abecedario/boot/char_a_255.png" alt="a"></span>
+        <span class="b-ch" data-ch="r"><img src="img/abecedario/boot/char_r_255.png" alt="r"></span>
+        <span class="b-ch" data-ch="a"><img src="img/abecedario/boot/char_a_255.png" alt="a"></span>
+        <span class="b-ch" data-ch="d"><img src="img/abecedario/boot/char_d_179.png" alt="d"></span>
+        <span class="b-ch" data-ch="e"><img src="img/abecedario/boot/char_e_179.png" alt="e"></span>
+        <span class="b-ch" data-ch="v"><img src="img/abecedario/boot/char_v_179.png" alt="v"></span>
+      </div>
+      <div class="track"><i id="bi"></i></div>
+    </div>
+  </div>
+
+  <!-- Notificación Toast flotante -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <!-- Barra de navegación inferior tipo Dock -->
+  <nav class="dock" id="dock" aria-label="Navegación">
+    <a href="#inicio" data-l="Inicio"><img data-s="compass" alt="Inicio"></a>
+    <a href="#albumes" data-l="Álbumes" data-sec="albumes sobre-mi habilidades"><img data-s="photos" alt="Álbumes"></a>
+    <a href="#proyectos" data-l="Proyectos" data-sec="proyectos"><img data-s="folder" alt="Proyectos"></a>
+    <a href="#como-trabajo" data-l="Cómo trabajo" data-sec="como-trabajo"><img data-s="gear" alt="Cómo trabajo"></a>
+    <a href="#contacto" data-l="Contacto" data-sec="contacto"><img data-s="phone" alt="Contacto"></a>
+  </nav>
+
+  <main>
+    <!-- Sección Inicio / Hero (Diseño Editorial Chic Asimétrico y Centrado) -->
+    <section id="inicio">
+      <!-- Glow interactivo sutil reactivo al mouse -->
+      <div class="hero-interactive-glow" id="heroGlow" aria-hidden="true"></div>
+
+      <!-- Grid Rise: Campo interactivo de baldosas 3D con elevación y ondas reactivas al cursor (React Bits Pro - Vinotinto) -->
+      <canvas id="gridRiseCanvas" class="grid-rise-canvas" aria-hidden="true"></canvas>
+
+      <!-- Contenedor central armónico con la marca principal -->
+      <div class="hero-editorial-wrap">
+        <div class="hero-brand-col">
+          <h1 class="hero-brand-staggered" aria-label="saradev">
+            <span class="brand-row row-sara">
+              <img class="hero-part-img" src="img/hero-sara.png" alt="sara">
+            </span>
+            <span class="brand-row row-dev">
+              <img class="hero-part-img" src="img/hero-dev.png" alt="dev">
+            </span>
+          </h1>
+
+          <!-- Ghost Type: Headline interactivo con AI Ghost Completions (React Bits Pro) -->
+          <div class="ghost-type-wrap">
+            <div class="ghost-type-box" id="ghostType" tabindex="0" role="region" aria-label="Headline interactivo con sugerencias AI">
+              <span class="ghost-prefix">Desarrollo </span>
+              <span class="ghost-typed" id="ghostTyped"></span>
+              <span class="ghost-cursor" id="ghostCursor" aria-hidden="true"></span>
+              <span class="ghost-completion" id="ghostCompletion" aria-hidden="true"></span>
+              <button class="ghost-tab-badge" id="ghostTabBtn" aria-label="Aceptar sugerencia AI (Tab)" title="Presiona Tab o clic para autocompletar">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" class="ghost-sparkle-icon">
+                  <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                </svg>
+                <span>Tab ⇥</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Píldoras y Redes Sociales en la esquina inferior derecha -->
+      <div class="hero-meta-col" data-r="up" style="--d: .3s">
+        <div class="hero-pills">
+          <span class="hero-pill">Creative Developer</span>
+          <span class="hero-pill">Based in Colombia</span>
+        </div>
+        <div class="hero-socials">
+          <a href="https://www.instagram.com/sara.webdev/" target="_blank" rel="noopener" class="hero-social-link"
+            aria-label="Instagram" title="@sara.webdev">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
+          </a>
+          <a href="https://wa.me/573125473848" target="_blank" rel="noopener" class="hero-social-link"
+            aria-label="WhatsApp" title="+57 312 5473848">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path
+                d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.155.57 4.178 1.564 5.928l-1.657 6.056 6.223-1.632c1.701.927 3.65 1.464 5.727 1.464 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+          <a href="https://github.com/" target="_blank" rel="noopener" class="hero-social-link" aria-label="GitHub"
+            title="GitHub">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenedor Horizontal de Álbumes: Habilidades (Izq) | Álbumes (Centro) | Sobre mí (Der) -->
+    <div class="albums-horizontal-track" id="albumsTrack">
+
+      <!-- Sección Habilidades (A la IZQUIERDA de Álbumes) -->
+      <section id="habilidades" class="paper horizontal-slide">
+        <a href="#albumes" class="album-nav-link link-right" aria-label="Volver a Álbumes">Álbumes →</a>
+        <img class="gear a" data-s="gear" alt="">
+        <img class="gear b" data-s="gear" alt="">
+        <div class="head" data-r="right">
+          <h2>Habilidades</h2><img data-s="photos" alt="">
+        </div>
+        <div class="panel" data-r="up">
+          <div class="group" data-r="up" style="--d: .15s">
+            <h3>Lenguajes:</h3>
+            <div class="chips" data-chips="lang"></div>
+          </div>
+          <div class="group" data-r="up" style="--d: .28s">
+            <h3>Tecnologías:</h3>
+            <div class="chips" data-chips="tech"></div>
+          </div>
+          <div class="group" data-r="up" style="--d: .4s">
+            <h3>Herramientas:</h3>
+            <div class="chips" data-chips="tools"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección Álbumes (En el CENTRO) -->
+      <section id="albumes" class="paper blush horizontal-slide">
+        <div class="head" data-r="left"><img data-s="photos" alt="">
+          <h2>Álbumes</h2>
+        </div>
+        <div class="albums">
+          <a class="album" href="#sobre-mi" data-r="left" style="--d:.12s">
+            <img data-s="tongue" alt="">
+            <div>
+              <h3>Sobre mí</h3>
+              <p>Conóceme un poco</p>
+            </div>
+          </a>
+          <a class="album" href="#habilidades" data-r="right" style="--d:.25s">
+            <img data-s="gear" alt="">
+            <div>
+              <h3>Habilidades</h3>
+              <p>Tecnologías, lenguajes y herramientas que uso.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Sección Sobre Mí (A la DERECHA de Álbumes) -->
+      <section id="sobre-mi" class="paper horizontal-slide">
+        <a href="#albumes" class="album-nav-link link-left" aria-label="Volver a Álbumes">← Álbumes</a>
+        <div class="about">
+          <div class="head" data-r="left"><img data-s="photos" alt="">
+            <h2>Sobre mí</h2>
+          </div>
+          <div class="bubble" data-r="up">
+            <p class="name" data-r="wipe" style="--d:.3s">Sara Fajardo</p>
+            <p data-r="up" style="--d:.45s">Soy estudiante de Ingeniería de software, me interesa el diseño de software
+              y el desarrollo de experiencias digitales.</p>
+            <p data-r="up" style="--d:.6s">Disfruto experimentar con ideas creativas y cuidar detalles en las
+              páginas/aplicaciones que he creado para que tengan identidad propia.</p>
+            <p data-r="up" style="--d:.75s"><b>Idiomas:</b>Español<br>Inglés (certificado)</p>
+          </div>
+          <div class="polaroid" data-r="up">
+            <img class="ph" src="img/sobre-mi.jpg" alt="Sara Fajardo">
+            <img class="fr" data-s="frame" alt="">
+          </div>
+          <img class="me" data-s="tongue" alt="" data-r="left">
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Sección Proyectos: Las 3 webs en capas limpias y directas -->
+    <section id="proyectos" class="editorial-projects-section">
+      <div class="editorial-projects-head" data-r="up">
+        <div class="editorial-title-row">
+          <h2 data-r="up">Mis proyectos</h2>
+          <img data-s="folder" alt="Proyectos" class="editorial-folder-icon" data-r="pop" style="--d: .18s">
+        </div>
+      </div>
+
+      <div class="deck-fan" id="deckFan">
+        <!-- 01: Sablée Pastelería -->
+        <article class="fan-card" data-idx="0" data-r="up" style="--d:.08s" tabindex="0" role="button" aria-label="Ver Sablée Pastelería"
+          onclick="openProjectModal(0, this)">
+          <img src="img/proyecto-sablee.jpg" alt="Sablée Pastelería" loading="lazy">
+        </article>
+
+        <!-- 02: Amigurumis Catálogo -->
+        <article class="fan-card" data-idx="1" data-r="up" style="--d:.22s" tabindex="0" role="button" aria-label="Ver Catálogo de Amigurumis"
+          onclick="openProjectModal(1, this)">
+          <img src="img/proyecto-amigurumis.jpg" alt="Amigurumis Catálogo" loading="lazy">
+        </article>
+
+        <!-- 03: Avélle Cosmetics -->
+        <article class="fan-card" data-idx="2" data-r="up" style="--d:.36s" tabindex="0" role="button" aria-label="Ver Avélle Beauty Store"
+          onclick="openProjectModal(2, this)">
+          <img src="img/proyecto-avelle.jpg" alt="Avélle Beauty Store" loading="lazy">
+        </article>
+      </div>
+    </section>
+
+    <!-- Sección Cómo trabajo (Metodología Creativa & Flujo de Desarrollo) -->
+    <section id="como-trabajo" class="workflow-section">
+      <!-- Tuercas decorativas grandes en posiciones dinámicas (estilo Habilidades) -->
+      <img class="workflow-gear-float gear-top-right" data-s="gear" alt="" data-r="pop" style="--d: .12s" aria-hidden="true">
+      <img class="workflow-gear-float gear-bottom-left" data-s="gear" alt="" data-r="pop" style="--d: .26s" aria-hidden="true">
+      <img class="workflow-gear-float gear-mid-left" data-s="gear" alt="" data-r="pop" style="--d: .38s" aria-hidden="true">
+
+      <div class="workflow-head" data-r="up">
+        <div class="workflow-title-wrap">
+          <h2 data-r="up" style="--d: .06s">Cómo trabajo</h2>
+        </div>
+      </div>
+
+      <div class="click-stack-wrap" data-r="up" style="--d:.15s">
+        <div class="click-stack" id="clickStack" role="region"
+          aria-label="Metodología interactiva: haz clic para avanzar">
+          <!-- Paso 01 -->
+          <article class="stack-card" data-pos="0" data-index="0" tabindex="0" role="button"
+            aria-label="Paso 01: Descubrimiento & Visión">
+            <div class="card-top">
+              <span class="step-num">01</span>
+              <span class="step-pill">Estrategia</span>
+            </div>
+            <h3 class="step-title">Descubrimiento & Visión</h3>
+            <p class="step-desc">
+              Comienzo explorando el propósito, la identidad de marca y los objetivos del proyecto. Analizo referencias
+              visuales, estructura de contenidos y la vibra editorial que hará única la web.
+            </p>
+            <div class="step-chips">
+              <span class="step-chip">Moodboards</span>
+              <span class="step-chip">Arquitectura UX</span>
+              <span class="step-chip">User Flow</span>
+              <span class="step-chip">Estrategia</span>
+            </div>
+          </article>
+
+          <!-- Paso 02 -->
+          <article class="stack-card" data-pos="1" data-index="1" tabindex="0" role="button"
+            aria-label="Paso 02: Identidad & Prototipado">
+            <div class="card-top">
+              <span class="step-num">02</span>
+              <span class="step-pill">Diseño UI/UX</span>
+            </div>
+            <h3 class="step-title">Identidad & Prototipado</h3>
+            <p class="step-desc">
+              Diseño interfaces contemporáneas con tipografías con carácter, paleta cromática armónica y
+              micro-interacciones cuidadas al píxel para visualizar la experiencia interactiva antes de programar.
+            </p>
+            <div class="step-chips">
+              <span class="step-chip">Figma</span>
+              <span class="step-chip">Design Systems</span>
+              <span class="step-chip">Wireframing</span>
+              <span class="step-chip">UI Editorial</span>
+            </div>
+          </article>
+
+          <!-- Paso 03 -->
+          <article class="stack-card" data-pos="2" data-index="2" tabindex="0" role="button"
+            aria-label="Paso 03: Desarrollo Creativo & Clean Code">
+            <div class="card-top">
+              <span class="step-num">03</span>
+              <span class="step-pill">Desarrollo Web</span>
+            </div>
+            <h3 class="step-title">Desarrollo Creativo & Clean Code</h3>
+            <p class="step-desc">
+              Transformo el diseño en código interactivo, limpio y rápido. Integro Three.js, shaders WebGL, transiciones
+              fluidas y arquitectura responsive garantizando altos estándares técnicos.
+            </p>
+            <div class="step-chips">
+              <span class="step-chip">HTML5 / CSS3</span>
+              <span class="step-chip">JavaScript / TypeScript</span>
+              <span class="step-chip">Three.js / WebGL</span>
+              <span class="step-chip">Responsive</span>
+            </div>
+          </article>
+
+          <!-- Paso 04 -->
+          <article class="stack-card" data-pos="3" data-index="3" tabindex="0" role="button"
+            aria-label="Paso 04: Optimización & Lanzamiento">
+            <div class="card-top">
+              <span class="step-num">04</span>
+              <span class="step-pill">Entrega</span>
+            </div>
+            <h3 class="step-title">Optimización & Lanzamiento</h3>
+            <p class="step-desc">
+              Pruebas minuciosas en múltiples navegadores y dispositivos móviles, optimización de velocidad de carga,
+              animación fluida a 60fps y puesta en producción lista para conectar con los usuarios.
+            </p>
+            <div class="step-chips">
+              <span class="step-chip">QA Cross-Browser</span>
+              <span class="step-chip">Performance 60fps</span>
+              <span class="step-chip">SEO Básico</span>
+              <span class="step-chip">Despliegue</span>
+            </div>
+          </article>
+        </div>
+
+        <!-- Indicadores de progreso (haz clic en la tarjeta o puntos para avanzar) -->
+        <div class="click-stack-controls" data-r="up" style="--d: .3s">
+          <div class="click-dots" id="clickDots" role="tablist" aria-label="Pasos de metodología">
+            <button type="button" class="click-dot is-active" data-dot="0" aria-label="Ir al paso 1"></button>
+            <button type="button" class="click-dot" data-dot="1" aria-label="Ir al paso 2"></button>
+            <button type="button" class="click-dot" data-dot="2" aria-label="Ir al paso 3"></button>
+            <button type="button" class="click-dot" data-dot="3" aria-label="Ir al paso 4"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto">
+      <h2 class="contact-brand" aria-label="Sara Fajardo" data-r="up">
+        <img class="contact-img" src="img/contact-title.png" alt="Sara Fajardo">
+      </h2>
+      <div class="ctas" data-r="up" style="--d: .15s">
+        <a class="btn" data-r="up" style="--d:.22s" href="https://wa.me/573125473848" target="_blank" rel="noopener"
+          aria-label="WhatsApp">
+          <img data-s="phone" alt="">+57 312 5473848
+        </a>
+        <a class="btn" data-r="up" style="--d:.34s" href="https://www.instagram.com/sara.webdev/" target="_blank"
+          rel="noopener" aria-label="Instagram">
+          <img data-s="instagram" alt="Instagram">@sara.webdev
+        </a>
+      </div>
+    </section>
+
+    <!-- Ventana Modal de Proyecto (Glassmorphism & Apertura iOS) -->
+    <div class="pw" id="pw" role="dialog" aria-modal="true" aria-label="Detalle del proyecto">
+      <div class="pin" id="pin">
+        <div class="pcard" id="pcard"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Cursor Personalizado Elegante -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+
+  <!-- Scripts JavaScript (Assets y Lógica) -->
+  <script src="js/stickers.js"></script>
+  <script src="js/project-textures.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/three.min.js" defer></script>
+  <script src="js/liquid-carousel.js" defer></script>
+</body>
+
+</html>

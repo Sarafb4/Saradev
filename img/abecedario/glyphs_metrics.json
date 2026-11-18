@@ -1,0 +1,326 @@
+{
+  "A": {
+    "file": "upper_A.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "a": {
+    "file": "lower_a.png",
+    "w": 98,
+    "h": 103,
+    "y_offset": -103
+  },
+  "B": {
+    "file": "upper_B.png",
+    "w": 102,
+    "h": 138,
+    "y_offset": -138
+  },
+  "b": {
+    "file": "lower_b.png",
+    "w": 97,
+    "h": 140,
+    "y_offset": -140
+  },
+  "C": {
+    "file": "upper_C.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "c": {
+    "file": "lower_c.png",
+    "w": 98,
+    "h": 103,
+    "y_offset": -103
+  },
+  "D": {
+    "file": "upper_D.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "d": {
+    "file": "lower_d.png",
+    "w": 98,
+    "h": 142,
+    "y_offset": -142
+  },
+  "E": {
+    "file": "upper_E.png",
+    "w": 89,
+    "h": 138,
+    "y_offset": -138
+  },
+  "e": {
+    "file": "lower_e.png",
+    "w": 97,
+    "h": 103,
+    "y_offset": -103
+  },
+  "F": {
+    "file": "upper_F.png",
+    "w": 89,
+    "h": 138,
+    "y_offset": -138
+  },
+  "f": {
+    "file": "lower_f.png",
+    "w": 89,
+    "h": 142,
+    "y_offset": -142
+  },
+  "G": {
+    "file": "upper_G.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "g": {
+    "file": "lower_g.png",
+    "w": 98,
+    "h": 127,
+    "y_offset": -103
+  },
+  "H": {
+    "file": "upper_H.png",
+    "w": 98,
+    "h": 138,
+    "y_offset": -138
+  },
+  "h": {
+    "file": "lower_h.png",
+    "w": 98,
+    "h": 142,
+    "y_offset": -142
+  },
+  "I": {
+    "file": "upper_I.png",
+    "w": 41,
+    "h": 138,
+    "y_offset": -138
+  },
+  "i": {
+    "file": "lower_i.png",
+    "w": 43,
+    "h": 143,
+    "y_offset": -143
+  },
+  "J": {
+    "file": "upper_J.png",
+    "w": 89,
+    "h": 138,
+    "y_offset": -138
+  },
+  "j": {
+    "file": "lower_j.png",
+    "w": 80,
+    "h": 167,
+    "y_offset": -143
+  },
+  "K": {
+    "file": "upper_K.png",
+    "w": 98,
+    "h": 138,
+    "y_offset": -138
+  },
+  "k": {
+    "file": "lower_k.png",
+    "w": 98,
+    "h": 142,
+    "y_offset": -142
+  },
+  "L": {
+    "file": "upper_L.png",
+    "w": 89,
+    "h": 138,
+    "y_offset": -138
+  },
+  "l": {
+    "file": "lower_l.png",
+    "w": 40,
+    "h": 142,
+    "y_offset": -142
+  },
+  "M": {
+    "file": "upper_M.png",
+    "w": 124,
+    "h": 138,
+    "y_offset": -138
+  },
+  "m": {
+    "file": "lower_m.png",
+    "w": 154,
+    "h": 103,
+    "y_offset": -103
+  },
+  "N": {
+    "file": "upper_N.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "n": {
+    "file": "lower_n.png",
+    "w": 97,
+    "h": 103,
+    "y_offset": -103
+  },
+  "\u00d1": {
+    "file": "upper_enye.png",
+    "w": 98,
+    "h": 156,
+    "y_offset": -156
+  },
+  "\u00f1": {
+    "file": "lower_enye.png",
+    "w": 97,
+    "h": 144,
+    "y_offset": -144
+  },
+  "O": {
+    "file": "upper_O.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "o": {
+    "file": "lower_o.png",
+    "w": 97,
+    "h": 103,
+    "y_offset": -103
+  },
+  "P": {
+    "file": "upper_P.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "p": {
+    "file": "lower_p.png",
+    "w": 97,
+    "h": 140,
+    "y_offset": -103
+  },
+  "Q": {
+    "file": "upper_Q.png",
+    "w": 97,
+    "h": 156,
+    "y_offset": -138
+  },
+  "q": {
+    "file": "lower_q.png",
+    "w": 97,
+    "h": 140,
+    "y_offset": -103
+  },
+  "R": {
+    "file": "upper_R.png",
+    "w": 97,
+    "h": 138,
+    "y_offset": -138
+  },
+  "r": {
+    "file": "lower_r.png",
+    "w": 85,
+    "h": 103,
+    "y_offset": -103
+  },
+  "S": {
+    "file": "upper_S.png",
+    "w": 99,
+    "h": 138,
+    "y_offset": -138
+  },
+  "s": {
+    "file": "lower_s.png",
+    "w": 96,
+    "h": 103,
+    "y_offset": -103
+  },
+  "T": {
+    "file": "upper_T.png",
+    "w": 111,
+    "h": 138,
+    "y_offset": -138
+  },
+  "t": {
+    "file": "lower_t.png",
+    "w": 89,
+    "h": 129,
+    "y_offset": -129
+  },
+  "U": {
+    "file": "upper_U.png",
+    "w": 98,
+    "h": 138,
+    "y_offset": -138
+  },
+  "u": {
+    "file": "lower_u.png",
+    "w": 98,
+    "h": 103,
+    "y_offset": -103
+  },
+  "V": {
+    "file": "upper_V.png",
+    "w": 99,
+    "h": 138,
+    "y_offset": -138
+  },
+  "v": {
+    "file": "lower_v.png",
+    "w": 99,
+    "h": 103,
+    "y_offset": -103
+  },
+  "W": {
+    "file": "upper_W.png",
+    "w": 156,
+    "h": 138,
+    "y_offset": -138
+  },
+  "w": {
+    "file": "lower_w.png",
+    "w": 156,
+    "h": 103,
+    "y_offset": -103
+  },
+  "X": {
+    "file": "upper_X.png",
+    "w": 106,
+    "h": 138,
+    "y_offset": -138
+  },
+  "x": {
+    "file": "lower_x.png",
+    "w": 107,
+    "h": 103,
+    "y_offset": -103
+  },
+  "Y": {
+    "file": "upper_Y.png",
+    "w": 106,
+    "h": 138,
+    "y_offset": -138
+  },
+  "y": {
+    "file": "lower_y.png",
+    "w": 98,
+    "h": 140,
+    "y_offset": -103
+  },
+  "Z": {
+    "file": "upper_Z.png",
+    "w": 93,
+    "h": 138,
+    "y_offset": -138
+  },
+  "z": {
+    "file": "lower_z.png",
+    "w": 93,
+    "h": 103,
+    "y_offset": -103
+  }
+}

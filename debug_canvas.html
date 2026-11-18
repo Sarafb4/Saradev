@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="margin:0; background:#000;">
+  <section id="contacto" style="height:900px; width:1440px;">
+    <canvas id="gridRiseCanvasContact" class="grid-rise-canvas"></canvas>
+  </section>
+  <script src="js/stickers.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    setTimeout(() => {
+      const c = document.getElementById('gridRiseCanvasContact');
+      console.log('Canvas dimensions:', c.width, c.height, 'Style:', c.clientWidth, c.clientHeight);
+    }, 500);
+  </script>
+</body>
+</html>
