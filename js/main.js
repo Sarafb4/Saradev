@@ -1060,17 +1060,17 @@ function setupConcaveCarousel() {
         targetAngle = Math.round(currentAngle / stepAngle) * stepAngle;
       } else {
         velocity = 0;
-        // Magnetic Snap ("clicks into place" exacto al centro)
+        // Magnetic Snap ágil y suave ("clicks into place" exacto al centro)
         const snapDiff = targetAngle - currentAngle;
         if (Math.abs(snapDiff) > 0.03) {
-          currentAngle += snapDiff * 0.12;
+          currentAngle += snapDiff * 0.20;
         } else {
           currentAngle = targetAngle;
 
-          // Auto-drift suave estilo exposición cuando no se interactúa
+          // Auto-drift dinámico y elegante estilo galería cuando no se interactúa
           if (!isHovered && !rm) {
-            targetAngle -= 0.03;
-            currentAngle -= 0.03;
+            targetAngle -= 0.08;
+            currentAngle -= 0.08;
           }
         }
       }
@@ -1107,9 +1107,12 @@ function setupConcaveCarousel() {
       const distRatio = Math.abs(diffDeg) / 90;
       const scale = Math.max(0.78, 1 - distRatio * 0.15);
 
-      // Opacidad y centro
+      // Opacidad y centro optimizados (evita recalcular classList innecesariamente cada frame)
       const isCenter = Math.abs(diffDeg) < (stepAngle * 0.45);
-      card.classList.toggle('is-center', isCenter);
+      if (card._isCenter !== isCenter) {
+        card._isCenter = isCenter;
+        card.classList.toggle('is-center', isCenter);
+      }
 
       const opacity = Math.max(0.35, Math.cos(Math.min(Math.PI * 0.48, Math.abs(diffRad) * 0.95)));
       card.style.opacity = opacity.toFixed(2);
@@ -1166,8 +1169,9 @@ function setupConcaveCarousel() {
         try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
       }
 
-      // Sensibilidad al arrastre cóncavo
-      const angleDelta = dx * 0.18;
+      // Sensibilidad optimizada al arrastre cóncavo (más directa y fluida en móvil)
+      const dragFactor = window.innerWidth < 820 ? 0.32 : 0.22;
+      const angleDelta = dx * dragFactor;
       currentAngle += angleDelta;
       velocity = (angleDelta / dt) * 16;
     }
@@ -1208,7 +1212,8 @@ function setupConcaveCarousel() {
       return;
     }
 
-    targetAngle = Math.round((currentAngle + velocity * 10) / stepAngle) * stepAngle;
+    const flickMultiplier = window.innerWidth < 820 ? 18 : 14;
+    targetAngle = Math.round((currentAngle + velocity * flickMultiplier) / stepAngle) * stepAngle;
   };
 
   window.addEventListener('pointerup', onPointerEnd);
