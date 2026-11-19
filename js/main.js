@@ -188,7 +188,6 @@ if (stage) {
     e.style.setProperty('--d', (i * .12) + 's');
     e.setAttribute('aria-label', 'Abrir ' + p.name);
     e.innerHTML = p && p.img ? `<img class="shot" src="${p.img}" alt="${p.name}">` : (t === 'pk' ? '<i></i>' : '');
-    e.onclick = () => openP(i % PROJECTS.length, e);
     ['pointerenter', 'focus'].forEach(v => e.addEventListener(v, () => o.over = true));
     ['pointerleave', 'blur'].forEach(v => e.addEventListener(v, () => o.over = false));
     stage.append(e);
@@ -462,22 +461,11 @@ function setupVideoControls() {
 }
 
 function openP(i, el) {
-  pi = (i + PROJECTS.length) % PROJECTS.length;
-  lastW = el;
-  renderP(false);
-  if (pw) {
-    pw.classList.add('open');
-  }
-  document.body.classList.add('lock');
-
-  // Accesibilidad: mover el foco al botón de cerrar al abrir
-  setTimeout(() => {
-    const closeBtn = $('#pviewClose');
-    if (closeBtn) closeBtn.focus();
-  }, 250);
+  // Deshabilitado: ya no se abre el proyecto al hacer clic
+  return;
 }
 
-window.openProjectModal = openP;
+window.openProjectModal = () => {};
 
 function closeP() {
   const video = $('#pviewVideo');
@@ -1188,15 +1176,6 @@ function setupConcaveCarousel() {
 
   requestAnimationFrame(render);
 
-  // Control de apertura de modal seguro
-  let lastModalOpenTime = 0;
-  function triggerProjectModal(proj, cardEl) {
-    const now = performance.now();
-    if (now - lastModalOpenTime < 450) return;
-    lastModalOpenTime = now;
-    openProjectModal(proj, cardEl);
-  }
-
   let downCard = null;
   let startPointerX = 0;
   let startPointerY = 0;
@@ -1260,17 +1239,13 @@ function setupConcaveCarousel() {
       const targetCard = downCard || e.target.closest('.concave-card') || document.elementFromPoint(e.clientX, e.clientY)?.closest('.concave-card');
       if (targetCard) {
         const slot = parseInt(targetCard.dataset.slot, 10);
-        const proj = parseInt(targetCard.dataset.proj, 10);
 
-        // Centrar suavemente la tarjeta seleccionada
+        // Centrar suavemente la tarjeta seleccionada en el carrusel
         const cycle = N * stepAngle;
         let diff = -slot * stepAngle - currentAngle;
         diff = ((diff % cycle) + cycle) % cycle;
         if (diff > cycle / 2) diff -= cycle;
         targetAngle = currentAngle + diff;
-
-        // Abrir la ventana modal con video, web y detalles
-        triggerProjectModal(proj, targetCard);
       }
       return;
     }
@@ -1282,12 +1257,11 @@ function setupConcaveCarousel() {
   window.addEventListener('pointerup', onPointerEnd);
   window.addEventListener('pointercancel', onPointerEnd);
 
-  // Escucha de clic nativo en tarjetas (soporte universal teclado y ratón)
+  // Escucha de clic nativo en tarjetas (soporte universal teclado y ratón para centrar)
   cards.forEach(card => {
     card.addEventListener('click', (e) => {
       if (dragDist > 8) return;
       const slot = parseInt(card.dataset.slot, 10);
-      const proj = parseInt(card.dataset.proj, 10);
 
       // Centrar el slot seleccionado en el carrusel
       const cycle = N * stepAngle;
@@ -1295,17 +1269,17 @@ function setupConcaveCarousel() {
       diff = ((diff % cycle) + cycle) % cycle;
       if (diff > cycle / 2) diff -= cycle;
       targetAngle = currentAngle + diff;
-
-      // Abrir inmediatamente la ventana con video, detalles y enlace a la web
-      triggerProjectModal(proj, card);
     });
 
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         const slot = parseInt(card.dataset.slot, 10);
-        const proj = parseInt(card.dataset.proj, 10);
-        triggerProjectModal(proj, card);
+        const cycle = N * stepAngle;
+        let diff = -slot * stepAngle - currentAngle;
+        diff = ((diff % cycle) + cycle) % cycle;
+        if (diff > cycle / 2) diff -= cycle;
+        targetAngle = currentAngle + diff;
       }
     });
   });

@@ -366,20 +366,7 @@
       const now = performance.now();
       const moved = Math.hypot(e.clientX - dragStartX, e.clientY - dragStartY);
 
-      if (moved < 7) {
-        // Clic interactivo: abre el proyecto mediante raycaster
-        const rect = canvas.getBoundingClientRect();
-        mouseCoords.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        mouseCoords.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-        raycaster.setFromCamera(mouseCoords, stripCamera);
-        const hits = raycaster.intersectObjects(cardMeshes);
-        if (hits.length > 0) {
-          const hitIdx = hits[0].object.userData.index;
-          if (typeof window.openProjectModal === 'function') {
-            window.openProjectModal(hitIdx, canvas);
-          }
-        }
-      } else {
+      if (moved >= 7) {
         // Lanzamiento con inercia continua estilo smartphone/iOS
         if (dragHistory.length >= 2) {
           const oldest = dragHistory[0];
