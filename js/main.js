@@ -59,6 +59,21 @@ const PROJECTS = [
     img: 'img/proyecto-avelle.jpg',
     video: 'video/proyecto-demo.mp4',
     url: 'https://sarawebdev.github.io/avelle/'
+  },
+  {
+    name: 'Saki Soluciones',
+    number: '04',
+    tag: 'SAAS & GESTIÓN EDUCATIVA',
+    type: 'Plataforma SaaS & Gestión de Clases',
+    subtitle: 'Plataforma SaaS & Gestión de Clases',
+    desc: 'Plataforma web de gestión académica y administrativa para docentes y academias. Centraliza agenda de clases, organización de grupos, seguimiento de tareas y cobros automáticos sin hojas de Excel.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+    year: '2025',
+    accent: '#5a8cb8',
+    bgMedia: '#0b1622',
+    img: 'img/proyecto-saki.jpg',
+    video: 'video/proyecto-demo.mp4',
+    url: 'https://sarawebdev.github.io/saki/'
   }
 ];
 
@@ -1134,7 +1149,10 @@ function setupConcaveCarousel() {
     const normalizedAngle = ((-currentAngle % cycle) + cycle) % cycle;
     let closestSlot = Math.round(normalizedAngle / stepAngle) % N;
     activeSlot = closestSlot;
-    const projIdx = closestSlot % 3;
+    const activeCard = cards[closestSlot];
+    const projIdx = activeCard && activeCard.dataset.proj !== undefined
+      ? parseInt(activeCard.dataset.proj, 10)
+      : (closestSlot % PROJECTS.length);
     updateActiveMeta(projIdx);
 
     cards.forEach((card, i) => {

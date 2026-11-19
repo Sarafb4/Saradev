@@ -21,8 +21,9 @@
       ? window.PROJECT_COVERS
       : [
         { name: 'Sablée Pastelería', url: 'img/proyecto-sablee.jpg' },
-        { name: 'Avélle Beauty Store', url: 'img/proyecto-avelle.jpg' },
         { name: 'Amigurumis Web Store', url: 'img/proyecto-amigurumis.jpg' },
+        { name: 'Avélle Beauty Store', url: 'img/proyecto-avelle.jpg' },
+        { name: 'Saki Soluciones', url: 'img/proyecto-saki.jpg' },
         { name: 'Creative Brand Studio', url: 'img/proyecto-brand.jpg' },
         { name: 'Mobile & Web UI Design', url: 'img/proyecto-app.jpg' },
         { name: 'Motion & Visual Arts', url: 'img/proyecto-motion.jpg' },
