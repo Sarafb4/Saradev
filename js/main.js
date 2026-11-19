@@ -656,11 +656,77 @@ addEventListener('scroll', () => {
   document.documentElement.style.setProperty('--sy', scrollY);
 }, { passive: true });
 
+// Variable para controlar la animación activa de scroll
+let activeScrollAnim = null;
+let activeScrollTimer = null;
+
+function stopActiveScroll() {
+  if (activeScrollAnim) {
+    cancelAnimationFrame(activeScrollAnim);
+    activeScrollAnim = null;
+  }
+  if (activeScrollTimer) {
+    clearInterval(activeScrollTimer);
+    activeScrollTimer = null;
+  }
+}
+
+// Cancelar animación de scroll si el usuario interactúa manualmente
+['wheel', 'touchstart', 'mousedown'].forEach(ev => {
+  window.addEventListener(ev, stopActiveScroll, { passive: true });
+});
+
+// Función para desplazamiento vertical suave y 100% fiable en todos los navegadores y móviles (Card Stacking)
+function smoothScrollTo(targetY, duration = 460) {
+  stopActiveScroll();
+
+  const startY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  const diff = targetY - startY;
+  if (Math.abs(diff) < 2) return;
+
+  const startTime = performance.now();
+
+  function tick() {
+    const elapsed = performance.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3); // Curva cubic suave
+    const y = Math.round(startY + diff * ease);
+
+    window.scrollTo(0, y);
+    document.documentElement.scrollTop = y;
+    document.body.scrollTop = y;
+
+    if (progress >= 1) {
+      stopActiveScroll();
+      window.scrollTo(0, targetY);
+      document.documentElement.scrollTop = targetY;
+      document.body.scrollTop = targetY;
+    }
+  }
+
+  // Primer tick inmediato
+  tick();
+
+  // Animación a 60-120fps con RAF
+  if (typeof requestAnimationFrame === 'function') {
+    function loop() {
+      tick();
+      if (activeScrollAnim) {
+        activeScrollAnim = requestAnimationFrame(loop);
+      }
+    }
+    activeScrollAnim = requestAnimationFrame(loop);
+  }
+
+  // Respaldo garantizado por temporizador (evita que se congele en móviles si RAF entra en reposo)
+  activeScrollTimer = setInterval(tick, 16);
+}
+
 // Función para obtener la posición exacta de scroll vertical de cada sección (Card Stacking Universal)
 function getSectionScrollTop(targetId) {
   if (targetId === 'inicio') return 0;
-  
-  const sections = [
+
+  const order = [
     { ids: ['inicio'], el: document.getElementById('inicio') },
     { ids: ['albumes', 'sobre-mi', 'habilidades'], el: document.getElementById('albumsTrack') },
     { ids: ['proyectos'], el: document.getElementById('proyectos') },
@@ -668,18 +734,16 @@ function getSectionScrollTop(targetId) {
     { ids: ['contacto'], el: document.getElementById('contacto') }
   ];
 
-  let accumulatedTop = 0;
-  for (const sec of sections) {
-    if (sec.ids.includes(targetId)) {
-      return accumulatedTop;
+  let accumulated = 0;
+  for (const item of order) {
+    if (item.ids.includes(targetId)) {
+      return accumulated;
     }
-    if (sec.el) {
-      accumulatedTop += sec.el.offsetHeight;
+    if (item.el) {
+      accumulated += item.el.offsetHeight;
     }
   }
-
-  const targetEl = document.getElementById(targetId);
-  return targetEl ? targetEl.offsetTop : 0;
+  return 0;
 }
 
 // Desplazamiento suave universal para todos los enlaces del Dock
@@ -689,16 +753,13 @@ links.forEach(link => {
     if (!href.startsWith('#')) return;
     const targetId = href.replace('#', '');
     const targetEl = document.getElementById(targetId);
-    if (!targetEl && targetId !== 'inicio') return;
+    if (!targetEl && targetId !== 'inicio' && targetId !== 'albumes') return;
 
     e.preventDefault();
 
     const targetTop = getSectionScrollTop(targetId);
     if (targetTop !== null) {
-      window.scrollTo({
-        top: targetTop,
-        behavior: 'smooth'
-      });
+      smoothScrollTo(targetTop);
     }
 
     const track = document.getElementById('albumsTrack');
@@ -720,7 +781,7 @@ links.forEach(link => {
 
 // Resaltado dinámico del icono activo en el Dock según la sección visible (Card Stacking)
 function updateActiveDock() {
-  const currentScroll = window.scrollY;
+  const currentScroll = window.scrollY || document.documentElement.scrollTop || 0;
   const vh = window.innerHeight;
   const sections = [
     { id: 'inicio', el: document.getElementById('inicio') },
@@ -809,6 +870,7 @@ if (dockEl) {
   const MAX_LIFT = 16;    // Elevación suave hacia arriba en px
 
   dockEl.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return; // Previene cancelar toques y clics en pantallas táctiles móviles
     const mouseX = e.clientX;
     dockLinks.forEach(link => {
       const rect = link.getBoundingClientRect();
@@ -827,7 +889,8 @@ if (dockEl) {
     });
   });
 
-  dockEl.addEventListener('pointerleave', () => {
+  dockEl.addEventListener('pointerleave', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
     dockLinks.forEach(link => {
       link.style.transform = '';
     });
